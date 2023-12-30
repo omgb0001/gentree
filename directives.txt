@@ -1,0 +1,19 @@
+﻿AVANT TOUTE CHOSE INSTALLER ENTITYSQLSERVER ET ENTITYTOOL NUGETS
+
+ETAPE 1: DEFINIR LA CHAINE DE CONNECTION DANS APPSETINGS.JSON
+"ConnectionStrings": {
+  "gentreeAzure": "Server=tcp:omgbserv.database.windows.net,1433;Initial Catalog=gentree;Persist Security Info=False;User ID=pat;Password=Lisa250282;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=300;"
+}
+
+ETAPE 2: SCAFFOLD LE DB CONTEXT POUR CREER LES MODELES
+Scaffold-DbContext 'Name=ConnectionStrings:gentreeAzure' Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
+
+
+ETAPE 3: REFERENCER LA CHAINE DE CONNEXION AVEC UN BUILDER DANS PROGRAM.CS
+builder.Services.AddDbContext<GentreeContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("gentreeAzure"));
+});
+
+
+https://youtu.be/yYit7Ru-ANk
